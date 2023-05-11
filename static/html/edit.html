@@ -22,7 +22,7 @@
             font-size: 100px;
             color: #6f7ce5;
             text-align: center;
-            padding-top: 100px;
+            padding-top: 20px;
             font-family: 'Dongle', sans-serif;
         }
 
@@ -37,6 +37,7 @@
             width: 600px;
             height: 30px;
             font-size: 15px;
+            border: 1px solid #D9D9D9;
             border-radius: 8px;
         }
 
@@ -44,7 +45,7 @@
             background-color: lightgray;
         }
 
-        button {
+        .edit_button {
             border: none;
             width: 30px;
             height: 30px;
@@ -56,13 +57,13 @@
 
         .picture {
             border: 10px;
-            
+
         }
 
         .todo-list {
             margin: auto;
             float: left;
-            
+
         }
 
         .diary {
@@ -72,22 +73,25 @@
         }
 
         .body {
-            margin-left: 600px;
+            margin-left: 250px;
         }
 
         textarea {
             font-size: 20px;
             border-radius: 8px;
+            border: 1px solid #D9D9D9;
+
         }
 
         .img {
-            border: 1px solid grey;
-            height: 515px;
+            border: 1px solid #D9D9D9;
+            height: 450px;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
         }
 
         .img input[type="file"] {
@@ -110,7 +114,35 @@
             height: 25px;
             margin-left: 30px;
         }
-       
+
+        .imgButton:hover {
+            background-color: #6f7de5b4;
+        }
+
+        option {
+            background: white;
+            border-radius: 8px;
+
+        }
+
+        .diary_title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .finish_button {
+            width: 100px;
+            height: 30px;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 30px;
+            color: #fff;
+            background: #6f7ce5;
+            border: none;
+            border-radius: 100px;
+            margin: 25px 0 0 0;
+        }
     </style>
     <script>
         function readURL(input) {
@@ -131,9 +163,37 @@
 
         function todo_edit() {
             let todo = $('#todo').val()
-            let temp_html= `<option value=''>${todo}</option>`
+            let option_length = $('#selbox option').length
+            
+            if(todo ==""){
+                alert('할 일을 적어주세요!')
+            }else{
+                
+                let temp_html = `<option id='${option_length}'>${todo}</option>`
             $('#selbox').append(temp_html)
-            $('#todo').empty()
+            alert('투두리스트가 추가되었습니다!')
+            
+            }
+           
+            
+        }
+
+        function finish_edit(){
+            let option = $("#selbox").text()
+            let picture = $("#file").val()
+            let diary = $("#diary_text").val()
+            console.log(option,picture,diary)
+
+            let formData = new FormData();
+            formData.append("option_give",option);
+            formData.append("picture_give",picture);
+            formData.append("diary_give",diary);
+
+            fetch('/TodoEdit', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+                alert(data["msg"]);
+                window.location.reload()
+            });
+            
         }
     </script>
 </head>
@@ -141,7 +201,7 @@
 <body>
 
     <div class="title">
-        <a href="index.html">
+        <a href="/templates/index.html">
             < </a>&nbsp
                 <span style="font-weight: bold;">todo</span> <span style="font-size: 35px;">EDIT</span>
     </div>
@@ -151,13 +211,14 @@
     <div class="body">
         <div class="todo-list">
             <h2>TO-DO LIST</h2>
-            <input type="text" id="todo" placeholder="오늘의 할 일을 적어보세요">
-            <button type="button" onclick="todo_edit()">🖋</button>
+            <input type="text" id="todo" placeholder="오늘의 할 일을 적어보세요" maxlength='40'>
+            <button type="button" class="edit_button" onclick="todo_edit()">🖋</button>
             <div class="option">
 
-                <select id="selbox" name="selbox" style="width:94%;height:30px;margin-top: 20px;">
-                    <option value=''selected>작성된 투두리스트</option>
-                    
+                <select id="selbox" name="selbox" style="width:94%;height:40px;margin-top: 20px; background: #6f7de536;
+                border-radius: 8px;border: 1px solid #D9D9D9;">
+                    <option value='' selected>&nbsp작성된 투두리스트</option>
+
 
                 </select>
 
@@ -171,13 +232,18 @@
                         불러오기
                     </label>
                 </div>
-                <input type="file" id="file" onchange="readURL(this);">
+                <input type="file" name="file" id="file" onchange="readURL(this);">
             </div>
         </div>
 
         <div class="diary">
-            <h2>DIARY</h2>
-            <textarea rows="30" cols="70" placeholder="오늘의 일기를 작성해보세요"></textarea>
+            <div class="diary_title">
+                <h2>DIARY</h2>
+                <button class="finish_button" onclick="finish_edit()" type="button">
+                    작성완료
+                </button>
+            </div>
+            <textarea id="diary_text"rows="27" cols="70" placeholder="오늘의 일기를 작성해보세요"></textarea>
         </div>
     </div>
 
