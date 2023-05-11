@@ -56,21 +56,23 @@ function init_calendar(date) {
             // Set onClick handler for clicking a date
             curr_date.click({events: events, month: months[month], day:day}, date_click);
             row.append(curr_date);
+
+            // DB에 저장된 이모티콘 각 날짜에 넣기
             fetch('/icon').then(res => res.json()).then(data => {
                 let icon_month;
                 let rows = data['result']
                 rows.forEach((a) => {
                     switch(a['month']) {
-                        case 'Jan': 
+                        case 'January': 
                             icon_month = 1
                             break
-                        case 'Feb':
+                        case 'February':
                             icon_month = 2
                             break
-                        case 'Mar':
+                        case 'March':
                             icon_month = 3
                             break
-                        case 'Apr':
+                        case 'April':
                             icon_month = 4
                             break
                         case 'May':
@@ -79,19 +81,19 @@ function init_calendar(date) {
                         case 'Jun': 
                             icon_month = 6
                             break
-                        case 'Jul':
+                        case 'July':
                             icon_month = 7
                             break
-                        case 'Aug':
+                        case 'August':
                             icon_month = 8
                             break
-                        case 'Sep':
+                        case 'September':
                             icon_month = 9
                             break
-                        case 'Oct':
+                        case 'October':
                             icon_month = 10
                             break
-                        case 'Nov':
+                        case 'November':
                             icon_month = 11
                             break
                         default:
@@ -243,7 +245,8 @@ function show_events(events, month, day) {
             $(".events-container").append(event_card);
         }
     }
-    //insert icon into active date
+
+    // 이모티콘 클릭 시 이미지 소스, 년, 월, 일을 데이터 베이스에 저장
     $('.icon').off("click").on('click',(function() {
         $('.icon.active-icon').removeClass("active-icon")
         $(this).addClass("active-icon")
@@ -255,9 +258,53 @@ function show_events(events, month, day) {
         fetch('/icon', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => { })
     }))
 
+    // 확인 버튼 클릭시 새로고침
     $('.icon-btn').click(function() {
         window.location.reload()
     })
+
+    // a태그로 index.html에서 edit.html로 데이터 전달
+    let icon_month
+    switch(month) {
+        case 'January': 
+            icon_month = 1
+            break
+        case 'February':
+            icon_month = 2
+            break
+        case 'March':
+            icon_month = 3
+            break
+        case 'April':
+            icon_month = 4
+            break
+        case 'May':
+            icon_month = 5
+            break
+        case 'Jun': 
+            icon_month = 6
+            break
+        case 'July':
+            icon_month = 7
+            break
+        case 'August':
+            icon_month = 8
+            break
+        case 'September':
+            icon_month = 9
+            break
+        case 'October':
+            icon_month = 10
+            break
+        case 'November':
+            icon_month = 11
+            break
+        default:
+            icon_month = 12
+    }
+    $('.atag').attr('href', `/static/html/edit.html?day=${day}&month=${icon_month}&year=${$(".year").text()}`)
+
+
 }
 
 // Checks if a specific date has any events
