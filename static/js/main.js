@@ -244,7 +244,6 @@ function show_events(events, month, day) {
         }
     }
     //insert icon into active date
-    var icon_src;
     $('.icon').off("click").on('click',(function() {
         $('.icon.active-icon').removeClass("active-icon")
         $(this).addClass("active-icon")
@@ -256,9 +255,9 @@ function show_events(events, month, day) {
         fetch('/icon', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => { })
     }))
 
-    // $('.active-date').empty()
-    // let temp_html = `<img class="inserted-icon" src="${$('.icon.active-icon').attr('src')}"/><div>${day}</div>`
-    // $('.active-date').append(temp_html)
+    $('.icon-btn').click(function() {
+        window.location.reload()
+    })
 }
 
 // Checks if a specific date has any events
