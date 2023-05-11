@@ -191,13 +191,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 700px;
   height: 100vh;
   background-color: rgba(111, 125, 229, .1);
-  gap: 50px;
 }
 .box-wrapper {
+  margin-top: 45px;
   box-sizing: border-box;
   width: 550px;
   height: 289px;
