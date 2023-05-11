@@ -182,13 +182,117 @@ body {
 .icon-btn:hover {
   background-color: rgba(111, 125, 229, .5);
 }
-/* right side */
+/* right side - todo & diary */
 .right-side {
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 700px;
   height: 100vh;
   background-color: rgba(111, 125, 229, .1);
+  gap: 50px;
+}
+.box-wrapper {
+  box-sizing: border-box;
+  width: 550px;
+  height: 289px;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+}
+.box-wrapper.diary {
+  height: 450px;
+  padding: 0;
+  margin-bottom: 80px;
+}
+.title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-wrap > .title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #6F7CE5;
+}
+.edit-btn {
+  cursor: pointer;
+  height: 25px;
+  border: none;
+  background-color: #6F7CE5;
+  padding: 0 8px;
+  border-radius: 3px;
+}
+.edit-btn:hover {
+  background-color: rgba(111, 125, 229, .5);
+}
+.edit-icon {
+  margin-top: 2px;
+}
+.middle-line {
+  height: 1px;
+  background-color: #d9d9d9;
+  margin: 10px 0 15px;
+  width: 100%;
+}
+.to-do-wrapper {
+  height: 185px;
+  overflow: auto;
+}
+.to-do-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.to-do-wrapper::-webkit-scrollbar-thumb {
+height: 20%; 
+background: #dbdbdb; 
+border-radius: 10px;
+}
+.to-do-wrapper::-webkit-scrollbar-track {
+background: transparent 
+}
+.to-do {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.to-do:last-child {
+  margin-bottom: 0;
+}
+.content {
+  margin: 0;
+  font-size: 15px;
+}
+.check-box {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #d9d9d9;
+  margin-right: 13px;
+}
+.img-container {
+  background-color: green;
+  height: 150px;
+  border-radius: 8px 8px 0 0;
+}
+.diary-container {
+  padding: 20px 24px;
+}
+.diary-content {
+  height: 219px;
+  margin: 5px 0 0;
+  overflow: auto;
+  font-size: 15px;
+}
+.diary-content::-webkit-scrollbar {
+  width: 4px;
+}
+.diary-content::-webkit-scrollbar-thumb {
+height: 20%; 
+background: #dbdbdb; 
+border-radius: 10px;
+}
+.diary-content::-webkit-scrollbar-track {
+background: transparent 
 }
