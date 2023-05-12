@@ -56,9 +56,10 @@
 
       $(document).ready(function () {
         show_todo();
+        show_diary();
       });
 
-      // 불러오기
+      // 투두리스트 불러오기
       function show_todo() {
         fetch('/todo').then(res => res.json()).then(data => {
                 let rows = data['result']
@@ -71,7 +72,7 @@
             })
       }
 
-      // 저장
+      // 투두리스트 저장
       function save_todo() {
         if($('#todo').val() !== '') {
           const searchParams = new URLSearchParams(location.search);
@@ -79,12 +80,13 @@
           let month = searchParams.get('month')
           let year = searchParams.get('year')
           let todo = $('#todo').val()
-
+          let arr = [day, month, year]
           let formData = new FormData();
           formData.append("todolist_give", todo);
           formData.append("day_give", day);
           formData.append("month_give", month);
           formData.append("year_give", year);
+          formData.append("arr_give", arr);
           fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
               // alert(data["msg"]);
               window.location.reload();
@@ -94,6 +96,7 @@
         }
       }
 
+      // 투두리스트 삭제
       function delete_todo(id) {
         const searchParams = new URLSearchParams(location.search);
         let day = searchParams.get('day')
@@ -110,6 +113,63 @@
           alert(data["msg"]);
           window.location.reload();
         });
+      }
+
+      // 다이어리 저장
+      function save_diary() {
+        if($('#diary_area').val() !== '') {
+          const searchParams = new URLSearchParams(location.search);
+          let day = searchParams.get('day')
+          let month = searchParams.get('month')
+          let year = searchParams.get('year')
+          let diary = $('#diary_area').val()
+          console.log(diary)
+          let formData = new FormData();
+          formData.append("diary_give", diary);
+          formData.append("day_give", day);
+          formData.append("month_give", month);
+          formData.append("year_give", year);
+          fetch('/diary', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
+              // alert(data["msg"]);
+              window.location.reload();
+          });
+        } else {
+          alert('내용을 입력하세요!')
+        }
+      }
+
+      // 다이어리 불러오기
+      function show_diary() {
+        fetch('/diary').then(res => res.json()).then(data => {
+          const searchParams = new URLSearchParams(location.search);
+          let day = searchParams.get('day')
+          let month = searchParams.get('month')
+          let year = searchParams.get('year')
+          let rows = data['result']
+          $('.diary-area-wrapper').empty();
+          rows.forEach((a)=>{
+            if(day == a['day'] && month == a['month'] && year == a['year']) {
+              let temp_html = `<textarea
+                                name="todo_area"
+                                id="diary_area"
+                                class="diary_area"
+                                cols="30"
+                                rows="10"
+                              >${a['diary']}</textarea>`
+              $('.diary-area-wrapper').append(temp_html);
+            } else {
+              let temp_html = `<textarea
+                                name="todo_area"
+                                id="diary_area"
+                                class="diary_area"
+                                cols="30"
+                                rows="10"
+                                placeholder="오늘의 일기를 작성해보세요"
+                              ></textarea>`
+              $('.diary-area-wrapper').append(temp_html);
+            }
+          })
+        })
       }
     </script>
   </head>
@@ -136,14 +196,11 @@
                   name="todo"
                   placeholder="오늘의 할일"
                 />
-
                 <button class="todo_post"  type="button" onclick="save_todo()" >
                   <img class="form_imoge" src="/static/img/edit.svg" alt="연필모양 아이콘"/>
                 </button>
               </div>
-
               <!-- <div class="todo_toggle">
-
                 <p>작성된 투두리스트</p>
                 <button>
                     <img src="image/hover/arrow icon.svg" alt="" />
@@ -196,7 +253,6 @@
                   </li>
                 </ul>
               </div> -->
-
               <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h3 class="accordion-header" id="flush-headingOne">
@@ -236,20 +292,21 @@
             </form>
           </div> -->
         </div>
-
         <div class="todo_right">
           <div class="todo_diary">
             <h2><label for="todo_area">DIARY</label></h2>
-
-            <button class="comp">작성완료</button>
+            <button class="comp" onclick="save_diary()">작성완료</button>
           </div>
-          <textarea
-            name="todo_area"
-            id="todo_area"
-            cols="30"
-            rows="10"
-            placeholder="오늘의 일기를 작성해보세요"
-          ></textarea>
+          <div class="diary-area-wrapper">
+            <textarea
+              name="todo_area"
+              id="diary_area"
+              class="diary_area"
+              cols="30"
+              rows="10"
+              placeholder="오늘의 일기를 작성해보세요"
+            ></textarea>
+          </div>
         </div>
       </div>
     </div>

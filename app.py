@@ -67,5 +67,26 @@ def todo_delete():
   db.todo.delete_one(doc)
   return jsonify({'msg': '삭제 완료!'})
 
+@app.route("/diary", methods=["POST"])
+def diary_post():
+  diary_receive = request.form['diary_give']
+  day_receive = request.form['day_give']
+  month_receive = request.form['month_give']
+  year_receive = request.form['year_give']
+  db.diary.delete_one({'day': day_receive, 'month': month_receive, 'year': year_receive})
+  doc = {
+      'diary': diary_receive,
+      'day': day_receive,
+      'month': month_receive,
+      'year': year_receive
+  }
+  db.diary.insert_one(doc)
+  return jsonify({'msg': '저장 연결 완료!'})
+
+@app.route("/diary", methods=["GET"])
+def diary_get():
+  all_diary = list(db.diary.find({},{'_id':False}))
+  return jsonify({'result': all_diary})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)

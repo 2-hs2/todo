@@ -314,7 +314,7 @@ button.close_btn:hover{
 .comp:hover {
   opacity: 0.5;
 }
-#todo_area {
+.diary_area {
   /* margin-top: 20px; */
   width: 600px;
   height: 400px;
@@ -327,17 +327,17 @@ button.close_btn:hover{
   resize: none;
   overflow: auto;
 }
-#todo_area::-webkit-scrollbar {
+.diary_area::-webkit-scrollbar {
   width: 4px;
 }
-#todo_area::-webkit-scrollbar-thumb {
+.diary_area::-webkit-scrollbar-thumb {
 height: 20%; 
 background: #dbdbdb; 
 border-radius: 10px;
 }
-#todo_area::-webkit-scrollbar-track {
+.diary_area::-webkit-scrollbar-track {
 background: transparent 
 }
-#todo_area::placeholder {
+.diary_area::placeholder {
     color: #d9d9d9;
 }
