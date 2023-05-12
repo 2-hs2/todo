@@ -256,6 +256,7 @@ function show_events(events, month, day) {
         formData.append("year_give", $(".year").text())
         formData.append("src_give", $('.icon.active-icon').attr('src'));
         fetch('/icon', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => { })
+            // DB에 저장된 투두리스트 넣기
     }))
     
     // 확인 버튼 클릭시 새로고침
@@ -303,8 +304,19 @@ function show_events(events, month, day) {
             icon_month = 12
     }
     $('.atag').attr('href', `/static/html/edit.html?day=${day}&month=${icon_month}&year=${$(".year").text()}`)
-
-
+    fetch('/todo').then(res => res.json()).then(data => {
+        let rows = data['result']
+        $(`.to-do-wrapper`).empty()
+        rows.forEach((a) => {
+            if((day == a['day']) && a['month'] == icon_month && $(".year").text() == a['year']) {
+                    let temp_html = `<div class="to-do">
+                                        <div class="check-box"></div>
+                                        <p class="content">${a['todo']}</p>
+                                    </div>`
+                $(`.to-do-wrapper`).append(temp_html)
+            }
+        })
+    })
 }
 
 // Checks if a specific date has any events
