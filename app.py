@@ -31,5 +31,19 @@ def icon_get():
     all_icons = list(db.icon.find({},{'_id':False}))
     return jsonify({'result': all_icons})
 
+@app.route("/todo", methods=["POST"])
+def todo_post():
+  todolist_receive = request.form['todolist_give']
+  doc = {
+      'todo':todolist_receive
+      }
+  db.todo.insert_one(doc)
+  return jsonify({'msg': '저장 연결 완료!'})
+
+@app.route("/todo", methods=["GET"])
+def todo_get():
+  all_todo = list(db.todo.find({},{'_id':False}))
+  return jsonify({'result': all_todo})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
