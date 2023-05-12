@@ -150,9 +150,9 @@
           let month = searchParams.get('month')
           let year = searchParams.get('year')
           let rows = data['result']
-          $('.diary-area-wrapper').empty();
           rows.forEach((a)=>{
             if(day == a['day'] && month == a['month'] && year == a['year']) {
+              $('.diary-area-wrapper').empty();
               let temp_html = `<textarea
                                 name="todo_area"
                                 id="diary_area"
@@ -162,6 +162,7 @@
                               >${a['diary']}</textarea>`
               $('.diary-area-wrapper').append(temp_html);
             } else {
+              $('.diary-area-wrapper').empty();
               let temp_html = `<textarea
                                 name="todo_area"
                                 id="diary_area"
