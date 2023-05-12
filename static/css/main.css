@@ -277,6 +277,9 @@ background: transparent
   background-color: green;
   height: 150px;
   border-radius: 8px 8px 0 0;
+  background-image: url("/static/img/diary.png");
+  background-position: center;
+  background-size: cover;
 }
 .diary-container {
   padding: 20px 24px;
