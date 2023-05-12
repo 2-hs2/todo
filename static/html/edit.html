@@ -20,13 +20,6 @@
     <script>
       $(document).ready(function(){
 
-      $(".form_imoge").hover(function(){
-          $(this).attr("src", "image/hover/Vector.svg");
-          }, function(){
-          $(this).attr("src", "image/Vector.svg");
-          });
-
-
       let toggle_img = $(".todo_toggle_close")
       toggle_img.hover(function(){
           $(this).children().first().attr("src", "/static/img/hover/Rectangle 3.svg")
@@ -80,12 +73,9 @@
 
       // 저장
       function save_todo() {
-
           let todo = $('#todo').val()
           let formData = new FormData();
           formData.append("todolist_give", todo);
-
-
           fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
               // alert(data["msg"]);
               window.location.reload();s
@@ -101,7 +91,7 @@
           src="/static/img/logo.svg"
           alt="todo list edit"
         />
-        <s>EDIT</s>
+        <span>EDIT</span>
       </h1>
       <div class="todo_edit">
         <div class="todo_left">
@@ -118,7 +108,7 @@
                 />
 
                 <button class="todo_post"  type="button" onclick="save_todo()" >
-                  <img class="form_imoge" src="/static/img/Vector.svg" alt="연필모양 아이콘"/>
+                  <img class="form_imoge" src="/static/img/edit.svg" alt="연필모양 아이콘"/>
                 </button>
               </div>
 
@@ -203,7 +193,7 @@
 
             </div>
           </div>
-          <div class="picture">
+          <!-- <div class="picture">
             <h2>PICTURE</h2>
             <form method="post" enctype="multipart/form-data">
               
@@ -213,9 +203,8 @@
                 <div id="image_container"></div>
                 <label for="chooseFile" class="comp"> 불러오기 </label>
               </div>
-              <!-- <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)"/> -->
             </form>
-          </div>
+          </div> -->
         </div>
 
         <div class="todo_right">

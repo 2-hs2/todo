@@ -17,6 +17,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -48,9 +49,10 @@ table {
     width: 1050px;
     margin: 0 auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-self: left;
+    align-items: center;
 }
 
 .wrap {
@@ -61,14 +63,12 @@ table {
 h1.logo{
     margin: 0 auto;
     width: 274px;
-    padding-top: 130px;
+    padding-top: 80px;
     padding-bottom: 50px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-
-
 }
 
 h1.logo > a {
@@ -83,10 +83,6 @@ h1.logo > a {
     align-items: center;
 }
 
-h1.logo > a:hover {
-    
-    background: rgba(111,124,229,0.1) url('image/cramps.svg') center center no-repeat;
-}
 h1.logo > a img {
     position: absolute;
     
@@ -94,13 +90,12 @@ h1.logo > a img {
     /* height: 35px; */
 }
 
-h1.logo s {
+h1.logo span {
     color:#6f7ce5;
     font-size: 30px;
     text-decoration: none;
     font-style: normal;
     font-weight: 700;
-    line-height: 43px;
 }
 
 
@@ -126,7 +121,8 @@ h1.logo img{
 }
 
 .todo_left{
-    width: 460px;
+    width: 600px;
+    margin-bottom: 40px;
 }
 
 .todo_input {
@@ -134,7 +130,7 @@ h1.logo img{
 }
 
 #todo{
-    width: 460px;
+    width: 600px;
     height: 50px;
     font-size: 16px;
     line-height: 23.17px;
@@ -154,23 +150,24 @@ h1.logo img{
 }
 .todo_post {
   position: absolute;
-  top: 16px;
+  top: 13px;
   right: 23px;
-  width: 18px;
-  height: 18px;
-  background-color: none;
+  width: 25px;
+  height: 25px;
   border: none;
+  border-radius: 3px;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(111, 125, 229, 1);
+}
+.todo_post:hover {
+  background-color: rgb(111, 125, 229, .5);
 }
 .form_imoge{
     width: 18px;
     height: 18px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 16px;
 }
 #flush-headingOne .accordion-button{
     box-sizing: border-box;
@@ -188,7 +185,7 @@ h1.logo img{
 }
 
 #flush-headingOne .accordion-button::after{
-    content: url('../image/arrow icon.svg');
+    content: url('../img/arrow icon.svg');
     position: absolute;
     display: block;
     top: 14px;
@@ -202,7 +199,7 @@ h1.logo img{
 }
 
 #flush-headingOne .accordion-button:hover::after {
-    content: url('../image/hover/arrow icon.svg');
+    content: url('../img/hover/arrow icon.svg');
 }
 
 .accordion-body {
@@ -261,13 +258,13 @@ button.close_btn {
     width: 10px;
     height: 10px;
     display: block;
-    background: url('../image/close.svg') center center no-repeat;
+    background: url('../img/close.svg') center center no-repeat;
     border: none;
     margin-right: 15px;
 }
 
 button.close_btn:hover{
-    background-image: url('../image/hover/close.svg');
+    background-image: url('../img/hover/close.svg');
 }
 
 
@@ -324,8 +321,7 @@ button.close_btn:hover{
 }
 
 .todo_right {
-    width: 550px;
-    margin-left: 40px;
+    width: 600px;
 }
 
 .todo_diary {
@@ -337,36 +333,49 @@ button.close_btn:hover{
 
 
 .comp {
-    width: 100px;
-    height: 30px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 30px;
-    color:#fff;
-    background: #6f7ce5;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  color:#fff;
+  background: #6f7ce5;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
 }
 
 .comp:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 #todo_area {
-    /* margin-top: 20px; */
-    width: 550px;
-    height: 497px;
-    font-size: 16px;
-    font-weight: bold;
-    color:#d9d9d9;
-    padding-top: 25px;
-    padding-left: 25px;
-    border: 1px solid #d9d9d9;
-    border-radius: 5px;
-    resize: none;
+  /* margin-top: 20px; */
+  width: 600px;
+  height: 400px;
+  font-size: 16px;
+  font-weight: 500;
+  color:#6b6b6b;
+  padding: 25px 15px 25px 25px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  resize: none;
+  overflow: auto;
 }
-
+#todo_area::-webkit-scrollbar {
+  width: 4px;
+}
+#todo_area::-webkit-scrollbar-thumb {
+height: 20%; 
+background: #dbdbdb; 
+border-radius: 10px;
+}
+#todo_area::-webkit-scrollbar-track {
+background: transparent 
+}
 #todo_area::placeholder {
     color: #d9d9d9;
 }
