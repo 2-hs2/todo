@@ -64,10 +64,16 @@
         fetch('/todo').then(res => res.json()).then(data => {
                 let rows = data['result']
                 $('.accordion-body ul').empty();
+                const searchParams = new URLSearchParams(location.search);
+                let day = searchParams.get('day')
+                let month = searchParams.get('month')
+                let year = searchParams.get('year')
                 rows.forEach((a)=>{
-                  let todo = a['todo']
-                  let temp_html = `<li><span>${todo}</span><button class="close_btn" id="${todo}" onclick="delete_todo(id)"></button></li>`
-                  $('.accordion-body ul').append(temp_html);
+                  if((day == a['day']) && a['month'] == month && year == a['year']) {
+                    let todo = a['todo']
+                    let temp_html = `<li><span>${todo}</span><button class="close_btn" id="${todo}" onclick="delete_todo(id)"></button></li>`
+                      $('.accordion-body ul').append(temp_html);
+                    }
                 })
             })
       }
@@ -80,13 +86,11 @@
           let month = searchParams.get('month')
           let year = searchParams.get('year')
           let todo = $('#todo').val()
-          let arr = [day, month, year]
           let formData = new FormData();
           formData.append("todolist_give", todo);
           formData.append("day_give", day);
           formData.append("month_give", month);
           formData.append("year_give", year);
-          formData.append("arr_give", arr);
           fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
               // alert(data["msg"]);
               window.location.reload();
