@@ -304,6 +304,8 @@ function show_events(events, month, day) {
             icon_month = 12
     }
     $('.atag').attr('href', `/static/html/edit.html?day=${day}&month=${icon_month}&year=${$(".year").text()}`)
+
+    // 투두리스트 불러오기
     fetch('/todo').then(res => res.json()).then(data => {
         let rows = data['result']
         $(`.to-do-wrapper`).empty()
@@ -314,6 +316,18 @@ function show_events(events, month, day) {
                                         <p class="content">${a['todo']}</p>
                                     </div>`
                 $(`.to-do-wrapper`).append(temp_html)
+            }
+        })
+    })
+
+    // 다이어리 불러오기
+    fetch('/diary').then(res => res.json()).then(data => {
+        let rows = data['result']
+        $(`.diary-content-wrapper`).empty()
+        rows.forEach((a) => {
+            if((day == a['day']) && a['month'] == icon_month && $(".year").text() == a['year']) {
+                    let temp_html = `<p class="diary-content">${a['diary']}</p>`
+                $(`.diary-content-wrapper`).append(temp_html)
             }
         })
     })
