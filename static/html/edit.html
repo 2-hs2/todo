@@ -65,7 +65,7 @@
                 $('.accordion-body ul').empty();
                 rows.forEach((a)=>{
                   let todo = a['todo']
-                  let temp_html = `<li>${todo}<button class="close_btn"></button></li>`
+                  let temp_html = `<li><span>${todo}</span><button class="close_btn" id="${todo}" onclick="delete_todo(id)"></button></li>`
                   $('.accordion-body ul').append(temp_html);
                 })
             })
@@ -73,13 +73,39 @@
 
       // 저장
       function save_todo() {
-          let todo = $('#todo').val()
-          let formData = new FormData();
-          formData.append("todolist_give", todo);
-          fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
-              // alert(data["msg"]);
-              window.location.reload();s
-              });
+        const searchParams = new URLSearchParams(location.search);
+        let day = searchParams.get('day')
+        let month = searchParams.get('month')
+        let year = searchParams.get('year')
+        let todo = $('#todo').val()
+
+        let formData = new FormData();
+        formData.append("todolist_give", todo);
+        formData.append("day_give", day);
+        formData.append("month_give", month);
+        formData.append("year_give", year);
+        fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
+            // alert(data["msg"]);
+            window.location.reload();
+        });
+      }
+
+      function delete_todo(id) {
+        const searchParams = new URLSearchParams(location.search);
+        let day = searchParams.get('day')
+        let month = searchParams.get('month')
+        let year = searchParams.get('year')
+        let todo = id
+
+        let formData = new FormData();
+        formData.append("todolist_give", todo);
+        formData.append("day_give", day);
+        formData.append("month_give", month);
+        formData.append("year_give", year);
+        fetch('/todo-delete', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
+          alert(data["msg"]);
+          window.location.reload();
+        });
       }
     </script>
   </head>
@@ -177,14 +203,14 @@
                   <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                       <ul>
+                        <!-- <li>오늘의 할일<button class="close_btn"></button></li>
                         <li>오늘의 할일<button class="close_btn"></button></li>
                         <li>오늘의 할일<button class="close_btn"></button></li>
                         <li>오늘의 할일<button class="close_btn"></button></li>
                         <li>오늘의 할일<button class="close_btn"></button></li>
                         <li>오늘의 할일<button class="close_btn"></button></li>
                         <li>오늘의 할일<button class="close_btn"></button></li>
-                        <li>오늘의 할일<button class="close_btn"></button></li>
-                        
+                         -->
                       </ul>
                     </div>
                   </div>

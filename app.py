@@ -34,8 +34,14 @@ def icon_get():
 @app.route("/todo", methods=["POST"])
 def todo_post():
   todolist_receive = request.form['todolist_give']
+  day_receive = request.form['day_give']
+  month_receive = request.form['month_give']
+  year_receive = request.form['year_give']
   doc = {
-      'todo':todolist_receive
+      'todo':todolist_receive,
+      'day': day_receive,
+      'month': month_receive,
+      'year': year_receive
       }
   db.todo.insert_one(doc)
   return jsonify({'msg': '저장 연결 완료!'})
@@ -44,6 +50,22 @@ def todo_post():
 def todo_get():
   all_todo = list(db.todo.find({},{'_id':False}))
   return jsonify({'result': all_todo})
+
+@app.route("/todo-delete", methods=["POST"])
+def todo_delete():
+  todolist_receive = request.form['todolist_give']
+  day_receive = request.form['day_give']
+  month_receive = request.form['month_give']
+  year_receive = request.form['year_give']
+  print(todolist_receive, day_receive, month_receive, year_receive)
+  doc = {
+    'todo':todolist_receive,
+    'day': day_receive,
+    'month': month_receive,
+    'year': year_receive
+  }
+  db.todo.delete_one(doc)
+  return jsonify({'msg': '삭제 완료!'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)

@@ -257,7 +257,7 @@ function show_events(events, month, day) {
         formData.append("src_give", $('.icon.active-icon').attr('src'));
         fetch('/icon', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => { })
     }))
-
+    
     // 확인 버튼 클릭시 새로고침
     $('.icon-btn').click(function() {
         window.location.reload()
