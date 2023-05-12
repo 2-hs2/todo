@@ -73,21 +73,25 @@
 
       // 저장
       function save_todo() {
-        const searchParams = new URLSearchParams(location.search);
-        let day = searchParams.get('day')
-        let month = searchParams.get('month')
-        let year = searchParams.get('year')
-        let todo = $('#todo').val()
+        if($('#todo').val() !== '') {
+          const searchParams = new URLSearchParams(location.search);
+          let day = searchParams.get('day')
+          let month = searchParams.get('month')
+          let year = searchParams.get('year')
+          let todo = $('#todo').val()
 
-        let formData = new FormData();
-        formData.append("todolist_give", todo);
-        formData.append("day_give", day);
-        formData.append("month_give", month);
-        formData.append("year_give", year);
-        fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
-            // alert(data["msg"]);
-            window.location.reload();
-        });
+          let formData = new FormData();
+          formData.append("todolist_give", todo);
+          formData.append("day_give", day);
+          formData.append("month_give", month);
+          formData.append("year_give", year);
+          fetch('/todo', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => {
+              // alert(data["msg"]);
+              window.location.reload();
+          });
+        } else {
+          alert('내용을 입력하세요!')
+        }
       }
 
       function delete_todo(id) {
