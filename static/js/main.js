@@ -256,11 +256,10 @@ function show_events(events, month, day) {
         formData.append("year_give", $(".year").text())
         formData.append("src_give", $('.icon.active-icon').attr('src'));
         fetch('/icon', {method: "POST",body: formData,}).then((response) => response.json()).then((data) => { })
-            // DB에 저장된 투두리스트 넣기
     }))
-    
-    // 확인 버튼 클릭시 새로고침
-    $('.icon-btn').click(function() {
+
+     // 확인 버튼 클릭시 새로고침
+     $('.icon-btn').click(function() {
         window.location.reload()
     })
 
@@ -316,6 +315,16 @@ function show_events(events, month, day) {
                                         <p class="content">${a['todo']}</p>
                                     </div>`
                 $(`.to-do-wrapper`).append(temp_html)
+            }
+        })
+        // 체크박스 활성화 비활성화
+        $('.check-box').click(function() {
+            if ($(this).hasClass('active') == true) {
+                $(this).removeClass('active')
+                $(this).empty()
+            } else {
+                $(this).addClass('active')
+                $(this).append(`<img class="check-icon" src="/static/img/check.svg">`)
             }
         })
     })
